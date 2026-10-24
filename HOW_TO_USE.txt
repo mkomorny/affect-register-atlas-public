@@ -1,0 +1,52 @@
+HOW TO USE: affect-register-atlas
+====================================
+
+PURPOSE
+  Model the speaker's acoustic state transformations across baseline, tired,
+  angry/combative, intimate, public/oratorical, inebriated, reading, and
+  laughing-while-talking registers with exact delta matrices for F0, rate, SPL, and phonation.
+
+CAPABILITIES
+  - Standard 8-state register transformation taxonomy
+  - Exact numerical delta matrix: ΔF0 (Hz/st), ΔSPL (dB), Δrate (%), ΔHNR (dB)
+  - Phonation shifts: modal -> pressed/hyperfunctional, creaky/fry, or breathy/hypofunctional
+  - Closed quotient (CQ) and spectral tilt (Alpha Ratio) adjustments per state
+  - Supraglottic postures: larynx height displacement (mm) and velopharyngeal nasality
+  - Output machine-readable register_matrix.json
+
+USE CASES
+  - "My voice clone sounds like a frozen interview take—make it sound angry / intimate / exhausted"
+  - You need to dynamically switch vocal states during an interactive dialogue scene
+  - You want to model how a speaker's voice degrades under fatigue or escalates in confrontation
+
+IDEAS
+  - Pair with synthesis-control-compiler to apply state deltas onto Kokoro or WORLD vocoder
+  - Use combative/rally state when synthesizing large-venue public addresses
+  - Use intimate/aside state for dramatic storytelling parentheticals
+
+PROMPTS YOU CAN PASTE
+  /affect-register-atlas Queens-male-orator
+
+  affect atlas for Steve Jobs
+
+  register matrix of this speaker across angry, tired, and intimate states
+
+  map emotional acoustics for this character. Give me the delta matrix relative to baseline.
+
+  How does this speaker's voice transform when shifting from conversational to rally mode?
+
+EXAMPLE FLOW
+  You:   /affect-register-atlas Queens-male-orator
+  Model: BASELINE: 158 Hz, 68 dB SPL, 4.5 sps, Modal phonation (CQ 0.52)
+         1. Combative/Angry:
+         - ΔF0: +3.4 st (+32 Hz), ΔSPL: +8.5 dB, Rate: 1.15x
+         - Phonation: Pressed hyperfunctional, CQ: 0.68, Larynx: +3.5 mm
+         2. Intimate Aside:
+         - ΔF0: -2.2 st, ΔSPL: -9.0 dB, Rate: 0.85x, Phonation: Mild creak
+         [register_matrix.json]
+
+DEFAULT GOALS IF YOU DON'T NAME ONE
+  1. Complete 8-state register taxonomy definitions
+  2. Numerical acoustic delta matrix (ΔF0, ΔSPL, Δrate, ΔHNR)
+  3. Phonation state classification and closed quotient shifts
+  4. Machine-readable register_matrix.json block
